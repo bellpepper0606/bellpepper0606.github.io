@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="main.css" />
     <title>Document</title>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li><a href="index.html">bellpepper</a></li>
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="bve.html">BVE</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
-        </ul>
-    </nav>
-</header>
+    <div id="header"></div>
+    <script>
+        // header.html を読み込む
+        const headerEl = document.getElementById('header');
+        fetch('header.html')
+        .then(response => response.text())
+        .then(html => headerEl.innerHTML = html);
+    </script>
+    <br>
+    <br>
 </body>
 </html>
