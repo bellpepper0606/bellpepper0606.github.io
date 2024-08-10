@@ -13,6 +13,13 @@
         .then(response => response.text())
         .then(html => headerEl.innerHTML = html);
     </script>
+        <div id="hover"></div>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.js"></script>
+        <script>
+        $(function(){
+          $('#hover').load('hover.html');
+        });
+        </script>
     <form
         action="https://docs.google.com/forms/d/e/1FAIpQLScM8BzmqrD-gBqV-9FOE2h37y71LmfzIP-K0RK7tRWvcIWJFA/formResponse"
 		method="POST"

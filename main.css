@@ -1,7 +1,7 @@
 h1 {
     font-size: 40px;
 }
-.link {
+.link{
     color: black;
     text-align: left;
     font-size: 25px;
@@ -21,23 +21,5 @@ h1 {
 }
 li {
     text-align: center;
-}
-.sns {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    right: 0px;
-    color: white;
-    background-color: black;
-  }
-.sns a i {
-    font-size: 24px; /* アイコンの大きさを24pxに設定 */
-    width: 24px; /* アイコンの幅を24pxに設定 */
-    height: 24px; /* アイコンの高さを24pxに設定 */
-    display: inline-block; /* インラインブロック要素として扱う */
-    text-align: center; /* アイコンを中央揃えにする */
-    line-height: 24px; /* アイコンの高さに合わせてテキストの高さを調整 */
 }
   
