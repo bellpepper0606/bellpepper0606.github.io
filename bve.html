@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
     <div id="header"></div>
     <script>
-        // header.html を読み込む
         const headerEl = document.getElementById('header');
         fetch('header.html')
         .then(response => response.text())
@@ -16,5 +16,11 @@
     </script>
     <br>
     <br>
+    <h1>RouteData</h1>
+    <a class="link">架空路線松井空港線制作中</a>
+    <h1>TrainData</h1>
+    <a class="link">そんなものはない</a>
+    <h1>Plugin</h1>
+    <a class="link" href="https://github.com/bellpepper0606/D-ATC">D-ATC</a>
 </body>
 </html>
