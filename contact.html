@@ -6,6 +6,14 @@
     <title>お問い合わせ</title>
 </head>
 <body>
+    <div id="header"></div>
+    <script>
+        // header.html を読み込む
+        const headerEl = document.getElementById('header');
+        fetch('header.html')
+        .then(response => response.text())
+        .then(html => headerEl.innerHTML = html);
+    </script>
     <form
         action="https://docs.google.com/forms/d/e/1FAIpQLScM8BzmqrD-gBqV-9FOE2h37y71LmfzIP-K0RK7tRWvcIWJFA/formResponse"
 		method="POST"
@@ -14,6 +22,8 @@
 		class="c-form"
     >
     <link rel="stylesheet" href="form.css" />
+    <br>
+    <br>
     <h1 style="text-align: center;">お問い合わせ</h1>
 
     <p style="text-align: center; margin: 20px auto;">
