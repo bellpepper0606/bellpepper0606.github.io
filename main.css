@@ -10,3 +10,12 @@ h1 {
     color: darkgreen;
     text-decoration-line: underline;
 }
+.title {
+    color:black;
+    text-align: left;
+    font-size: 25px;
+}
+.title:hover {
+    color: black;
+    text-decoration-line: none;
+}
