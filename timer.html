@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タイマー</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        #timer {
+            font-size: 22vw;
+            color: #333;
+            border: 4px solid #333;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #fff;
+            margin:60px 0;
+            text-align: center;
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        button:hover:not(:disabled) {
+            background-color: #e0e0e0;
+        }
+        button:disabled {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+        label {
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        input {
+            width: 40px;
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .over-time {
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 20vw;
+        }
+    </style>
+</head>
+<body>
+
+<div id="timer">03:00</div>
+<div class="button-container">
+    <button id="startButton">スタート</button>
+    <button id="stopButton" disabled>ストップ</button>
+    <button id="resetButton" disabled>リセット</button>
+	 <button id="bellButton">手動鈴</button>
+</div>
+
+<div class="input-container">
+    <label for="minutes">分:</label>
+    <input type="number" id="minutes" min="0" value="3">
+    <label for="seconds">秒:</label>
+    <input type="number" id="seconds" min="0" max="59" value="0">
+</div>
+
+<audio id="bell" src="bell-98033.mp3" preload="auto"></audio>
+
+<script>
+    let timeLeft;
+    let countdown;
+    let isRunning = false;
+    let isPaused = false; // 新しいフラグを追加
+    const timerElement = document.getElementById('timer');
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const resetButton = document.getElementById('resetButton');
+	 const bellButton = document.getElementById('bellButton');
+    const bell = document.getElementById('bell');
+
+    startButton.addEventListener('click', () => {
+        if (!isRunning && !isPaused) { // 追加条件: isPausedがfalseのときのみ新たに設定
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+            const seconds = parseInt(document.getElementById('seconds').value) || 0;
+            timeLeft = minutes * 60 + seconds;
+        }
+
+        startButton.disabled = true;
+        stopButton.disabled = false;
+        resetButton.disabled = false;
+        updateTimerDisplay();
+        startCountdown();
+        isRunning = true;
+        isPaused = false; // スタート時にisPausedをリセット
+    });
+
+    stopButton.addEventListener('click', () => {
+        if (!isRunning) {
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+            const seconds = parseInt(document.getElementById('seconds').value) || 0;
+            timeLeft = minutes * 60 + seconds;
+        }
+        clearInterval(countdown);
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        isRunning = false;
+        isPaused = true; // ストップ時に一時停止フラグを設定
+    });
+
+    resetButton.addEventListener('click', () => {
+        clearInterval(countdown);
+        resetTimer();
+    });
+
+	 bellButton.addEventListener('click', () => {
+	 	  bell.play();
+	 });
+
+    function resetTimer() {
+        timerElement.style.color = "#333";
+        const minutes = parseInt(document.getElementById('minutes').value) || 0;
+        const seconds = parseInt(document.getElementById('seconds').value) || 0;
+        timeLeft = minutes * 60 + seconds;
+        updateTimerDisplay();
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        resetButton.disabled = true;
+        isRunning = false;
+        isPaused = false; // リセット時に一時停止フラグをリセット
+    }
+
+    function startCountdown() {
+        countdown = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                bell.play();
+                showOverTime();
+                isRunning = false;
+            } else {
+                timeLeft--;
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+
+    function showOverTime() {
+        timerElement.innerHTML = `<span class="over-time">00:00</span>`;
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        // ボーダーの色を変更
+        if (timeLeft < 30) {
+            timerElement.style.color = "#d32f2f";
+            timerElement.style.borderColor = "#d32f2f"; // ボーダーの色を変更
+        } else {
+            timerElement.style.color = "#333";
+            timerElement.style.borderColor = "#333"; // 元の色に戻す
+        }
+    }
+</script>
+
+</body>
+</html>
